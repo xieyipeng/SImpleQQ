@@ -1,0 +1,7 @@
+li a {
+    /*超级链接变成了绿色*/
+    color: green;
+}
+body {
+    background: white url("images/background.JPG") no-repeat;
+}
