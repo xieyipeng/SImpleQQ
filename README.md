@@ -118,3 +118,7 @@ operations.py：修改decode为encode
 python manage.py makemigrations
 python manage.py migrate
 ```
+4、创建管理员账户
+```java
+python manage.py createsuperuser
+```
