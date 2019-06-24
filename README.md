@@ -1,5 +1,4 @@
-# SSM
-软件大型实验周
+﻿# 软件大型实验周
 *django*
 
 # 一、[Django 使用步骤](http://www.liujiangblog.com/course/django/84)
@@ -171,21 +170,46 @@ from login import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('get_test/', views.get_test),
-    path('post_test/', views.posy_test),
+    path('get_test/', views.get_test),  # 响应get文本请求
+    path('post_test/', views.posy_test),  # 响应post文本请求
+    path('post_file_test/', views.upload_file)  # 响应get文件请求
 ]
 ```
 * 4、逻辑[`../myApp/views.py`]：
 ```python
 import json
+import os
 
 from django.http import HttpResponse
-from django.shortcuts import render
-
-# Create your views here.
 from login.models import User
 
 
+def get_test(request):
+    pass
+
+
+def posy_test(request):
+    pass
+
+
+def upload_file(request):
+    pass
+
+```
+
+**注意：Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。**
+
+**如果想要访问电脑，使用`10.0.2.2`，**
+
+**`10.0.2.2` 是 Android 模拟器设置的特定 ip，是本机电脑的 alias - （别名）**
+
+## 2、文本类型请求
+
+* 发送get请求：
+
+
+Django端[`../myApp/views.py`]：
+```python
 def get_test(request):
     users = []
     user = {}
@@ -197,50 +221,34 @@ def get_test(request):
             user['ctime'] = str(var.c_time)
             user['sex'] = var.sex
             users.append(user)
-    return HttpResponse(json.dumps(users))
-
-
-def posy_test(request):
-    if request.method == 'POST':
-        req = request.POST.get('v1')
-        print('post请求')
-        print(req)
-        return HttpResponse(req)
-    else:
-        return HttpResponse("")
+    return HttpResponse(json.dumps(users))  # 返回user数据给安卓端
 ```
 
 
-* 发送get请求：
+android端get请求：
 
-Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
-
-如果想要访问电脑，使用`10.0.2.2`，
-
-`10.0.2.2` 是 Android 模拟器设置的特定 ip，是本机电脑的 alias - （别名）
 ```java
    /**
      * 发送get请求
-     *
-     * @param url   http://localhost:6144/Home/RequestString/
-     * @param param key=123 & v=456
-     * @return json数据包
+     * 
+     * @param url eg: http://10.0.2.2:8000/get_test/
+     * @return 返回服务器的响应
      */
-    public static String sendGetRequest(String url, String param) {
+    public static String sendGetRequest(String url) {
         HttpURLConnection connection = null;
         BufferedReader bufferedReader = null;
         StringBuilder result = null;
         try {
-            String urlString = url + "?" + param;
-            URL realUrl = new URL(urlString);
+            URL realUrl = new URL(url);
+            //打开链接
             connection = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-
             connection.setRequestMethod("GET");
             if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
+                //若链接正常（ResponseCode == 200）
                 Log.e(TAG, "sendGetRequest: Get Request Successful");
                 InputStream inputStream = connection.getInputStream();
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -253,11 +261,8 @@ Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
                 Log.e(TAG, "sendGetRequest: Get Request Failed");
             }
 
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "sendGetRequest: MU " + e.getMessage());
-            e.printStackTrace();
         } catch (IOException e) {
-            Log.e(TAG, "sendGetRequest: IO " + e.getMessage());
+            Log.e(TAG, "sendGetRequest: error: " + e.getMessage());
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -275,16 +280,63 @@ Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
     }
 ```
 
+android端点击事件：
+```java
+ getRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                  TODO: 子线程中访问网络
+                 */
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String url = "http://10.0.2.2:8000/get_test/";
+                        final String get = GetPostUtil.sendGetRequest(url);
+
+                        /*
+                          TODO: 子线程中更新UI
+                         */
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getTV.setText(get);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+```
+
+
+
 * 发送post请求：
+
+Django端：
+```python
+def posy_test(request):
+    if request.method == 'POST':
+        print(request.POST)
+        req = request.POST.get('v1')  # 获取post请求中的v1所对应的值
+        print('post请求')
+        print(req)
+        return HttpResponse(req)  # 返回v1所对应的值 -- 只是用来测试代码，实际逻辑按自己要求来
+    else:
+        return HttpResponse("none")
+```
+
+android端post请求
+
 ```java
     /**
      * 发送post请求
      *
      * @param url   发送请求的 URL
-     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @param data 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return json数据包
      */
-    public static String sendPostRequest(String url, String param) {
+    public static String sendPostRequest(String url, String data) {
         PrintWriter printWriter = null;
         StringBuilder result = null;
         BufferedReader bufferedReader = null;
@@ -308,6 +360,7 @@ Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
             // TODO: flush输出流的缓冲
             printWriter.print(param);
             printWriter.flush();
+            Log.e(TAG, "sendPostRequest: Post Request Successful");
 
             // TODO: 定义BufferedReader输入流来读取URL的响应
             result = new StringBuilder();
@@ -317,7 +370,7 @@ Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！" + e);
+            Log.e(TAG, "sendPostRequest: " + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
@@ -333,4 +386,301 @@ Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。
         }
         return result.toString();
     }
+```
+
+android端点击事件：
+```java
+ postRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String url = "http://10.0.2.2:8000/post_test/";
+                        String data = "v1=v&v2=v";
+                        final String get = GetPostUtil.sendPostRequest(url, data);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                postTV.setText(get);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+```
+
+## 图片（文件）请求
+* 发送post请求
+
+Django端：
+```python
+def upload_file(request):
+    if request.method == 'POST':
+        temp_file = request.FILES
+        if not temp_file:
+            print("文件传输失败")
+            return HttpResponse('upload failed!')
+        else:
+            print("文件传输成功")
+
+            # 自行理解下面输出的内容
+            # print(request.POST)
+            # print(temp_file)
+            # print(temp_file.get('file'))
+            # print(temp_file.get('file').name)
+        # TODO: 获取图片并存储在./uploads目录下 -- 实际逻辑按自己要求来
+        destination = open(os.path.join("./uploads", temp_file.get('file').name), 'wb+')
+        for chunk in temp_file.get('file').chunks():
+            destination.write(chunk)
+        destination.close()
+    return HttpResponse('upload success!')
+```
+android端post请求：
+```java
+    /**
+     * 发送post请求上传图片
+     * 
+     * @param actionUrl url
+     * @param inputStream 图片的流
+     * @param fileName name
+     * @return 服务器响应
+     */
+    public static String upLoadFiles(String actionUrl, InputStream inputStream, String fileName) {
+        StringBuffer result = new StringBuffer();
+        OutputStream outputStream = null;
+        DataInputStream dataInputStream = null;
+        try {
+            final String newLine = "\r\n"; // 换行符
+            final String boundaryPrefix = "--"; //边界前缀
+            final String boundary = String.format("=========%s", System.currentTimeMillis()); // 定义数据分隔线
+            // 连接
+            URL url = new URL(actionUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            // 发送POST请求必须设置如下两行
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            // 设置请求头参数
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Charsert", "UTF-8");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            // 获取输出流
+            outputStream = new DataOutputStream(connection.getOutputStream());
+            // 文件参数
+            // 参数头设置完以后需要两个换行，然后才是参数内容
+            String stringBuilder = boundaryPrefix +
+                    boundary +
+                    newLine +
+                    "Content-Disposition: form-data;name=\"file\";filename=\"" + fileName + "\"" + newLine +
+                    "Content-Type:application/octet-stream" +
+                    newLine +
+                    newLine;
+            // 将参数头的数据写入到输出流中
+            outputStream.write(stringBuilder.getBytes());
+            // 数据输入流,用于读取文件数据
+            dataInputStream = new DataInputStream(inputStream);
+            byte[] bufferOut = new byte[1024];
+            int bytes = 0;
+            // 每次读1KB数据,并且将文件数据写入到输出流中
+            while ((bytes = dataInputStream.read(bufferOut)) != -1) {
+                outputStream.write(bufferOut, 0, bytes);
+            }
+            // 最后添加换行
+            outputStream.write(newLine.getBytes());
+            //关闭流
+            inputStream.close();
+            dataInputStream.close();
+            // 定义最后数据分隔线，即--加上boundary再加上--。
+            byte[] end_data = (newLine + boundaryPrefix + boundary + boundaryPrefix + newLine).getBytes();
+            // 写上结尾标识
+            outputStream.write(end_data);
+            outputStream.flush();
+            outputStream.close();
+            // 定义BufferedReader输入流来读取服务器的响应
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            Log.e(TAG, "upLoadFiles: 响应： " + result.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "uploadFiles: " + e.getMessage());
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "upLoadFiles: " + e.getMessage());
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "upLoadFiles: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+            if (dataInputStream != null) {
+                try {
+                    dataInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "upLoadFiles: " + e.getMessage());
+                }
+            }
+        }
+        return result.toString();
+    }
+```
+
+android端点击事件：
+```java
+ postFileRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String fileName = "IMG.JPG";
+                        // 获取工程目录下Assets目录里面的只读资源文件
+                        // 也可获取相机里的文件流，同理
+                        AssetManager assetManager = MainActivity.resources.getAssets();
+                        try {
+                            InputStream inputStream = assetManager.open(fileName);
+                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/post_file_test/", inputStream, fileName);
+                            /*
+                             TODO: 子线程中更新UI
+                             */
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    postFileTV.setText(get);
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.e(TAG, "run: " + e.getMessage());
+                        }
+                    }
+                }).start();
+            }
+        });
+```
+
+* 获取图片资源（nginx）
+
+道理同url获取图片资源，`eg：http://pic37.nipic.com/20140113/8800276_184927469000_2.png`，反向代理。
+
+1、首先下载nginx
+
+网址：http://nginx.org/en/download.html
+
+选择 `stable version` -- `win10`
+
+2、 安装
+
+加压后直接双击根目录下nginx.exe即可运行
+
+任务管理器中看到两个nginx的进程即可
+
+3、 修改config
+
+http包下的servcer包内，修改listen属性为81（防止别的资源抢占80端口），charset改为UTF-8，root改为自己的./upload目录：
+```python
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+```
+
+修改后：
+```python
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       81;
+        server_name  localhost;
+
+        charset UTF-8;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   "E:\\SSM\\qq\\uploads"; # 根据自己的情况而定
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+```
+
+4、 验证
+
+直接在浏览器输入`127.0.0.1:81/img.jpg` 即可。(当然，你的./upload路径下要有该img文件)
+
+5、android端访问
+
+**注意**：用`10.0.2.2:81`访问
+
+导入Glide依赖
+```java
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+```
+
+```java
+    getFileRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://10.0.2.2:81/微信图片_20190609175306.jpg";
+                Glide.with(context)
+                        .load(url)
+                        .into(imageView);
+            }
+        });
 ```
