@@ -24,6 +24,7 @@ class User(models.Model):
         verbose_name = "用户"
         verbose_name_plural = "用户"
 
+
 # class Vedios(models.Model):
 #     types = (('run', "跑步"), ('yoga', "瑜伽"), ('exercise', "健身"), ('balls', "球类"))
 #
@@ -33,3 +34,10 @@ class User(models.Model):
 #     class Meta:
 #         verbose_name = "视频课程"
 #         verbose_name_plural = "视频课程"
+
+class Test(models.Model):
+    name = models.CharField(max_length=128)
+    headImg = models.FileField(upload_to='./uploads')  # 文件名
+
+    def __str__(self):
+        return self.name

@@ -2,7 +2,7 @@ import json
 import os
 
 from django.http import HttpResponse
-from login.models import User
+from login.models import User, Test
 
 
 def get_test(request):
@@ -19,7 +19,7 @@ def get_test(request):
     return HttpResponse(json.dumps(users))  # 返回user数据给安卓端
 
 
-def posy_test(request):
+def post_test(request):
     if request.method == 'POST':
         print(request.POST)
         req = request.POST.get('v1')  # 获取post请求中的v1所对应的值
@@ -50,3 +50,17 @@ def upload_file(request):
             destination.write(chunk)
         destination.close()
     return HttpResponse('upload success!')
+
+
+def test_file(request):
+    if request.method == 'POST':
+
+        print(request.FILES)
+
+        kwargs = {
+            'name':'drdese',
+            'headImg':request.FILES.get('file'),
+        }
+        temp = Test.objects.create(**kwargs)
+        temp.save()
+    return HttpResponse('success')

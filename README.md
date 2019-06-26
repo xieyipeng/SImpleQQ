@@ -1,7 +1,29 @@
-﻿# 软件大型实验周
-*django*
+﻿1、项目总地址：https://github.com/xieyipeng/SSM
 
-# 一、[Django 使用步骤](http://www.liujiangblog.com/course/django/84)
+2、Django学习：https://github.com/xieyipeng/SSM/tree/master/Django_test
+
+3、Django实战：https://github.com/xieyipeng/SSM/tree/master/LoginAndRegistration
+
+4、Django与Android连接（服务端Django工程）：https://github.com/xieyipeng/SSM/tree/master/qq
+
+以下两个android工程的服务端基于[链接4](https://github.com/xieyipeng/SSM/tree/master/qq)
+
+5、Django与Android交互（Http请求 - android工程）：https://github.com/xieyipeng/SSM/tree/master/demoHttp
+
+6、基于Django（webSocket）实现在线聊天（android工程）：https://github.com/xieyipeng/SSM/tree/master/SoketTest
+
+7、javaBean基类（GetPostUtil）：https://github.com/xieyipeng/SSM/blob/master/demoHttp/app/src/main/java/com/example/xieyipeng/demo/bean/GetPostUtil.java
+
+
+`在线聊天`我是看官方文档（相信他讲的比我好`Django + channels`）：
+
+中文版：http://www.likecs.com/show-22817.html
+
+
+
+# 一、Django
+
+[Django 教程-刘江的博客](http://www.liujiangblog.com/course/django/84)
 ## 1、虚拟环境创建工程
 ![](http://liujiangblog.com/static/images/course/103-3.png)
 * 注意venv这个虚拟环境目录，以及我们额外创建的templats目录
@@ -171,7 +193,7 @@ from login import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('get_test/', views.get_test),  # 响应get文本请求
-    path('post_test/', views.posy_test),  # 响应post文本请求
+    path('post_test/', views.post_test),  # 响应post文本请求
     path('post_file_test/', views.upload_file)  # 响应get文件请求
 ]
 ```
@@ -188,7 +210,7 @@ def get_test(request):
     pass
 
 
-def posy_test(request):
+def post_test(request):
     pass
 
 
@@ -196,6 +218,20 @@ def upload_file(request):
     pass
 
 ```
+
+* 5、允许所有的地址访问[`../qq/settings.py`]
+
+当然可以只限定几个已知的地址访问该服务器
+
+```python
+ALLOWED_HOSTS = ['*']
+```
+* 6、在android端加入网络权限[`AndroidManifest.xml`]
+
+```java
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
 
 **注意：Android模拟器下 `127.0.0.1` 或者`localhost`访问的是模拟器本机。**
 
@@ -212,10 +248,10 @@ Django端[`../myApp/views.py`]：
 ```python
 def get_test(request):
     users = []
-    user = {}
     list = User.objects.all()
-    if request.method == 'GET':
+    if request.method == 'GET': # 测试代码，真正逻辑自己编写
         for var in list:
+            user = {}
             user['id'] = var.id
             user['name'] = var.name
             user['ctime'] = str(var.c_time)
@@ -315,7 +351,7 @@ android端点击事件：
 
 Django端：
 ```python
-def posy_test(request):
+def post_test(request):
     if request.method == 'POST':
         print(request.POST)
         req = request.POST.get('v1')  # 获取post请求中的v1所对应的值
@@ -358,7 +394,7 @@ android端post请求
 
             // TODO: 发送请求参数
             // TODO: flush输出流的缓冲
-            printWriter.print(param);
+            printWriter.print(data);
             printWriter.flush();
             Log.e(TAG, "sendPostRequest: Post Request Successful");
 
@@ -589,7 +625,7 @@ android端点击事件：
 
 任务管理器中看到两个nginx的进程即可
 
-3、 修改config
+3、 修改config（nginx解压目录下`./conf/nginx.conf`）
 
 http包下的servcer包内，修改listen属性为81（防止别的资源抢占80端口），charset改为UTF-8，root改为自己的./upload目录：
 ```python
@@ -684,3 +720,5 @@ http {
             }
         });
 ```
+
+##### 刚接触这些东西，有错误的还请指出，特别是服务端的代码，只敢用于课程设计，大工程肯定不敢这样写`0.0`

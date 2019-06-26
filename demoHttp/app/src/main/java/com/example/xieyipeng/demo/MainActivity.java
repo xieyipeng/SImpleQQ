@@ -16,6 +16,8 @@ import com.example.xieyipeng.demo.bean.GetPostUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView postFileTV;
     private ImageView imageView;
     private Context context;
+
+    private List list=new ArrayList();
 
 
     private static final String TAG = "TEST_FILE";
@@ -68,14 +72,13 @@ public class MainActivity extends AppCompatActivity {
                         AssetManager assetManager = MainActivity.resources.getAssets();
                         try {
                             InputStream inputStream = assetManager.open(fileName);
-                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/post_file_test/", inputStream, fileName);
+                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/test_file/", inputStream, fileName);
                             /*
                              TODO: 子线程中更新UI
                              */
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    postFileTV.setText(get);
                                 }
                             });
                         } catch (IOException e) {

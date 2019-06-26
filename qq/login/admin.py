@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from login.models import User
+from login.models import User, Test
 from . import models
 
 
@@ -20,6 +20,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Test)
 
 # class QuestionAdmin(admin.ModelAdmin):
 #     # fields = ['pub_date', 'question_text']
