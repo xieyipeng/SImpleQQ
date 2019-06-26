@@ -1,0 +1,36 @@
+#!E:\SSM\qq\venv\Scripts\python.exe
+# coding: utf8
+
+# Deploy
+
+import os
+import sys
+
+from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER
+from deploy.models import App
+
+help = """usage: deploy-serverconf <appname> <service>
+
+services:
+    nginx
+    supervisor"""
+
+if len(sys.argv) < 3:
+    print help
+    exit()
+
+app = App(sys.argv[1])
+
+if not app.is_exists():
+    print "error: app with name \"%s\" is doesn't exists" % app.name
+    exit()
+
+conf_type = sys.argv[2]
+if conf_type == "nginx":
+    os.system("vim %s"%app.nginx_conf)
+    os.system("service nginx restart")
+elif conf_type == "supervisor":
+    os.system("vim %s"%app.supervisor_conf)
+    os.system("supervisorctl reload")
+else:
+    print help

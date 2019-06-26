@@ -1,0 +1,35 @@
+#!E:\SSM\qq\venv\Scripts\python.exe
+# coding: utf8
+
+# Deploy
+
+import os
+
+from deploy.conf import DEPLOY_CONF, APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER, HOLDERS_HOME
+
+
+if not os.path.exists(APPS_HOME):
+    os.makedirs(APPS_HOME)
+
+if not os.path.exists(SOCKS_HOME):
+    os.makedirs(SOCKS_HOME)
+
+if not os.path.exists(HOLDERS_HOME):
+    os.makedirs(HOLDERS_HOME)
+
+if not os.path.exists(DEPLOY_CONF):
+    file(DEPLOY_CONF, "w").write("""APPS_HOME = "/var/deploy/apps"
+SOCKS_HOME = "/var/deploy/sock"
+GIT_HOME = "/var/git"
+GIT_USER = "git"
+""")
+
+if not GIT_USER in file("/etc/passwd", "r").read():
+    os.makedirs(GIT_HOME)
+    os.system("useradd %s -b %s -d %s"%(GIT_USER, GIT_HOME, GIT_HOME))
+
+
+os.system("""
+echo "%s ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl" >> /etc/sudoers
+echo "%s ALL=(ALL) NOPASSWD: /usr/bin/git" >> /etc/sudoers
+"""%(GIT_USER, GIT_USER))

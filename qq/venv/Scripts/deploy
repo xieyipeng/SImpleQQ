@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Deploy
+
+if [ $USER != "root" ]
+then
+    echo "you aren't root"
+    exit
+fi
+
+if [[ $1 == "startserver" ]]; then
+    deploy-startserver $2 "$3"
+elif [[ $1 == "serverconf" ]]; then
+    deploy-serverconf $2 $3
+elif [[ $1 == "remove" ]]; then
+    deploy-remove $2 $3
+elif [[ $1 == "restart" ]]; then
+    deploy-restart $2
+elif [[ $1 == "init" ]]; then
+    deploy-init
+else
+    echo "usage: deploy <command> [...]
+
+commands:
+    init
+    startserver <appname> [<domains>]
+    serverconf <appname> <service>
+    restart <appname>
+    remove <appname> [-f]
+"
+fi

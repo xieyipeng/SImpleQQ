@@ -1,0 +1,18 @@
+import pickle as _pickle
+import dill as _dill
+
+
+def pickle(path, obj, method='pickle', mode='wb'):
+	with open(file=path, mode=mode) as output_file:
+		if method == 'dill':
+			_dill.dump(obj=obj, file=output_file, protocol=_dill.HIGHEST_PROTOCOL)
+		else:
+			_pickle.dump(obj=obj, file=output_file, protocol=_pickle.HIGHEST_PROTOCOL)
+
+def unpickle(path, method='pickle', mode='rb'):
+	with open(file=path, mode=mode) as input_file:
+		if method == 'dill':
+			obj = _dill.load(file=input_file)
+		else:
+			obj = _pickle.load(file=input_file)
+	return obj

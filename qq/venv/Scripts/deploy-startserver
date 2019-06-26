@@ -1,0 +1,113 @@
+#!E:\SSM\qq\venv\Scripts\python.exe
+# coding: utf8
+
+# Deploy
+
+import os
+import sys
+
+from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER
+from deploy.models import App
+
+
+if len(sys.argv) < 2:
+    print "usage: deploy-startserver <appname> [<domain.com www.domain.com>]"
+    exit()
+
+if len(sys.argv) == 2:
+    app = App(sys.argv[1])
+if len(sys.argv) == 3:
+    app = App(sys.argv[1], sys.argv[2])
+
+if app.is_exists():
+    print "error: app with name \"%s\" is already exists" % app.name
+    exit()
+
+# hold appname
+os.system("date > %s"%app.holder)
+
+# create git repository
+os.makedirs(app.git)
+os.system("cd %s; git init --bare"%app.git)
+
+# create system user
+os.system("useradd %s -d %s -b %s"%(app.user, app.home, app.home))
+
+# local git working tree
+os.system("git clone %s %s"%(app.git, app.home))
+os.system("chown %s:%s %s -R"%(app.user, app.user, app.home))
+
+# add hooks
+file(app.post_update_hook, "w").write("""#!/bin/bash
+GIT_DIR=%s
+WORK_TREE=%s
+
+sudo -u %s git --git-dir=$GIT_DIR fetch
+sudo -u %s git --git-dir=$GIT_DIR --work-tree=$WORK_TREE merge origin/master
+
+cd $WORK_TREE
+if [[ -r requirements.txt ]]; then
+    sudo -u %s env/bin/pip install -r requirements.txt
+fi
+
+if [[ -r post-update ]]; then
+    sudo -u %s ./post-update
+fi
+
+# BACKPORT: will be removed in version 2.0
+if [[ -r post_update ]]; then
+    sudo -u %s ./post_update
+fi
+
+find -name "*.coffee" -exec pycoffee  {} \;
+
+sudo supervisorctl restart %s
+""" % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.user, app.user, app.user, app.name))
+os.system("chmod +x %s"%app.post_update_hook)
+
+# chown git
+os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, app.git))
+
+# supervisor conf
+file(app.supervisor_conf, "w").write("""[program:%s]
+command = gunicorn wsgi:application -u %s -b unix:%s
+directory = %s""" % (app.name, app.user, app.sock, app.home))
+
+# nginx conf
+file(app.nginx_conf, "w").write("""upstream sock_%s {
+    server unix:%s;
+}
+
+server {
+    listen 80;
+    server_name %s;
+
+   location /static/ {
+        alias %s/;
+   }
+
+   location / {
+        proxy_pass http://sock_%s/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}""" % (app.name, app.sock, app.domains, app.static, app.name))
+
+# create virtualenv
+os.system("""
+cd %(home)s
+sudo -u %(user)s virtualenv env
+"""%{
+    "home": app.home,
+    "user": app.user,
+})
+
+# activate nginx conf
+os.system("ln -s %s %s"%(app.nginx_conf, NGINX_SITES_ENABLED))
+
+# reload supervisor
+os.system("supervisorctl reload")
+
+# restart nginx
+os.system("service nginx restart")

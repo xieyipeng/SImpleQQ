@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +31,9 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
 
+    'channels',
     'login',
+    'chat',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'qq.wsgi.application'
+# WSGI_APPLICATION = 'qq.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -131,3 +134,21 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+# TODO: 配置channels layer
+# TODO: 指定ASGI的路由地址 -- Asynchronous Server Gateway Interface -- channer运行于ASGI协议上
+
+ASGI_APPLICATION = 'qq.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+

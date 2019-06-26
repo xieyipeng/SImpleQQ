@@ -1,0 +1,23 @@
+#!E:\SSM\qq\venv\Scripts\python.exe
+# coding: utf8
+
+# Deploy
+
+import os
+import sys
+
+from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER
+from deploy.models import App
+
+
+if not len(sys.argv) == 2:
+    print "usage: deploy-reload <appname>"
+    exit()
+
+app = App(sys.argv[1])
+
+if not app.is_exists():
+    print "error: app with name \"%s\" is doesn't exists" % app.name
+    exit()
+
+os.system("supervisorctl restart %s"%app.name)

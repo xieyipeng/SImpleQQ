@@ -1,0 +1,54 @@
+#!E:\SSM\qq\venv\Scripts\python.exe
+# coding: utf8
+
+# Deploy
+
+import os
+import sys
+
+from deploy.models import App
+
+
+if len(sys.argv) < 2:
+    print "usage: deploy-remove <appname> [-f]"
+    exit()
+
+force = False
+if len(sys.argv) == 2:
+    app = App(sys.argv[1])
+
+if len(sys.argv) == 3:
+    app = App(sys.argv[1])
+    if sys.argv[2] == "-f":
+        force = True
+
+if not app.is_exists():
+    print "error: app with name \"%s\" isn't exists" % app.name
+    exit()
+
+if not force:
+    appname = raw_input("type app name [%s]: "%app.name)
+    if appname != app.name:
+        exit()
+
+
+backup_dir = app.backup_dir
+os.makedirs(backup_dir)
+
+# move git to backup dir
+os.system("mv %s %s"%(app.git, os.path.join(backup_dir, "git")))
+
+# move nginx conf to backup dir
+os.system("mv %s %s"%(app.nginx_conf, os.path.join(backup_dir, "nginx")))
+os.system("rm %s"%app.nginx_enabled)
+os.system("service nginx restart")
+
+# move supervisor conf to backup dir
+os.system("mv %s %s"%(app.supervisor_conf, os.path.join(backup_dir, "supervisor")))
+os.system("supervisorctl reload")
+
+# rm app home
+os.system("rm %s -rf"%app.home)
+
+# rm app holder
+os.system("rm %s"%app.holder)

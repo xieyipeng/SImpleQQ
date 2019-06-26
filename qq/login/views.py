@@ -7,10 +7,10 @@ from login.models import User
 
 def get_test(request):
     users = []
-    user = {}
     list = User.objects.all()
     if request.method == 'GET':
         for var in list:
+            user = {}
             user['id'] = var.id
             user['name'] = var.name
             user['ctime'] = str(var.c_time)
