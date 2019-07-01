@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="#f2f2f2"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="15dp">
+
+
+    <RelativeLayout
+        android:id="@+id/item_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="5dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/item_send_chat_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/item_send_chat_Text"
+            android:layout_width="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/item_send_chat_photo"
+            android:background="@drawable/chat_right_qp"
+            android:gravity="left|center"
+            android:lineSpacingExtra="3dp"
+            android:maxWidth="225.0dip"
+            android:minHeight="40dp"
+            android:minWidth="80dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="30dp"
+            android:paddingTop="8dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:layout_toStartOf="@id/item_send_chat_photo"
+            android:layout_marginEnd="5dp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/item_receive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="5dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/item_receive_chat_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/item_receive_chat_Text"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/item_receive_chat_photo"
+            android:background="@drawable/chat_left_qp"
+            android:gravity="left|center"
+            android:lineSpacingExtra="3dp"
+            android:maxWidth="225.0dip"
+            android:minHeight="40dp"
+            android:minWidth="80dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp"
+            android:layout_toEndOf="@id/item_receive_chat_photo"
+            android:layout_marginLeft="5dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="15dp"
+            android:layout_marginStart="5dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,39 +1,17 @@
-from datetime import timezone
-
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 # Create your models here.
-class User(models.Model):
-    gender = (
-        ('male', '男'),
-        ('female', '女')
-    )
 
-    name = models.CharField(max_length=128)
-    sex = models.CharField(max_length=32, choices=gender, default='男')
-    c_time = models.DateTimeField(auto_now_add=True)
-    # headImg = models.FileField('文件', upload_to='./uploads/%Y/%m/%d/')
-    headImg = models.FileField('头像', upload_to='./uploads')  # 文件名
+class MyUser(AbstractUser):
+    username = models.CharField(max_length=150, primary_key=True)
+    headImg = models.FileField(upload_to='./uploads', default='./uploads/default/headImg.jpg')
+    isOnline = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.username
 
-    class Meta:
-        ordering = ["-c_time"]
-        verbose_name = "用户"
-        verbose_name_plural = "用户"
-
-
-# class Vedios(models.Model):
-#     types = (('run', "跑步"), ('yoga', "瑜伽"), ('exercise', "健身"), ('balls', "球类"))
-#
-#     headImg = models.FileField('文件', upload_to='./upload')  # 文件名
-#     type = models.CharField(choices=types, default="跑步", max_length=32)
-#
-#     class Meta:
-#         verbose_name = "视频课程"
-#         verbose_name_plural = "视频课程"
 
 class Test(models.Model):
     name = models.CharField(max_length=128)
@@ -41,3 +19,20 @@ class Test(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Friend(models.Model):
+    friend_one = models.ForeignKey(
+        "MyUser",
+        on_delete=models.CASCADE,
+        related_name='me'
+    )
+
+    friend_other = models.ForeignKey(
+        "MyUser",
+        on_delete=models.CASCADE,
+        related_name='other'
+    )
+
+    def __str__(self):
+        return self.friend_one.username + ' - ' + self.friend_other.username

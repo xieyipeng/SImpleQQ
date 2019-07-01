@@ -25,7 +25,9 @@ SECRET_KEY = '_o444t#^52*#j7=_f@_ofkbwzi-f0+)(&4$mdp@&hhmu@q%hi5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '192.168.137.1', '192.168.43.145', '192.168.43.1',
+                 '10.0.116.49', '10.0.116.1', '202.207.177.3', '114.114.114.114',
+                 '192.168.137.299', '172.20.10.2', '172.20.10.1']
 
 # Application definition
 
@@ -58,8 +60,8 @@ ROOT_URLCONF = 'qq.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,4 +153,11 @@ CHANNEL_LAYERS = {
     },
 }
 
+# 在newUser里使用外键
+# 格式为 "<django_app名>.<model名>"
+# AUTH_USER_MODEL = "login.NewUser"
+AUTH_USER_MODEL = 'login.MyUser'
 
+# 配置session存储
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"

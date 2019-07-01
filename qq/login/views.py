@@ -2,19 +2,18 @@ import json
 import os
 
 from django.http import HttpResponse
-from login.models import User, Test
+from login.models import MyUser, Test
 
 
 def get_test(request):
     users = []
-    list = User.objects.all()
+    list = MyUser.objects.all()
     if request.method == 'GET':
         for var in list:
             user = {}
-            user['id'] = var.id
-            user['name'] = var.name
-            user['ctime'] = str(var.c_time)
-            user['sex'] = var.sex
+            user['id'] = var.isOnline
+            user['name'] = var.username
+            user['sex'] = var.password
             users.append(user)
     return HttpResponse(json.dumps(users))  # 返回user数据给安卓端
 
@@ -32,34 +31,34 @@ def post_test(request):
 
 def upload_file(request):
     if request.method == 'POST':
-        temp_file = request.FILES
-        if not temp_file:
-            print("文件传输失败")
-            return HttpResponse('upload failed!')
-        else:
-            print("文件传输成功")
-
-            # 自行理解下面输出的内容
-            # print(request.POST)
-            # print(temp_file)
-            # print(temp_file.get('file'))
-            # print(temp_file.get('file').name)
-        # TODO: 获取图片并存储在./uploads目录下 -- 实际逻辑按自己要求来
-        destination = open(os.path.join("./uploads", temp_file.get('file').name), 'wb+')
-        for chunk in temp_file.get('file').chunks():
-            destination.write(chunk)
-        destination.close()
-    return HttpResponse('upload success!')
+        print('post: ')
+        print(request.POST)
+        print(request.FILES)
+    return HttpResponse('success')
+    # print('post: ')
+    # temp_file = request.FILES
+    # if not temp_file:
+    #     print("文件传输失败")
+    #     return HttpResponse('upload failed!')
+    # else:
+    #     print("文件传输成功")
+    #     print('temp: ' + temp_file)
+    #     return HttpResponse('upload failed!')
+    #     # TODO: 获取图片并存储在./uploads目录下 -- 实际逻辑按自己要求来
+    #     destination = open(os.path.join("./uploads", temp_file.get('file').name), 'wb+')
+    #     for chunk in temp_file.get('file').chunks():
+    #         destination.write(chunk)
+    #     destination.close()
+    # return HttpResponse('upload success!')
 
 
 def test_file(request):
     if request.method == 'POST':
-
         print(request.FILES)
 
         kwargs = {
-            'name':'drdese',
-            'headImg':request.FILES.get('file'),
+            'name': 'drdese',
+            'headImg': request.FILES.get('file'),
         }
         temp = Test.objects.create(**kwargs)
         temp.save()

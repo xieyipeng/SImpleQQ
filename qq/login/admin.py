@@ -1,26 +1,26 @@
 from django.contrib import admin
 
-from login.models import User, Test
+from login.models import MyUser, Test,Friend
 from . import models
 
 
 # Register your models here.
 
 
-class UserAdmin(admin.ModelAdmin):
+class MyUserAdmin(admin.ModelAdmin):
     # fields = ['pub_date', 'question_text']
     # fieldsets = [
     #     (None, {'fields': ['question_text']}),
     #     ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     # ]
-    list_display = ('name', 'sex', 'c_time', 'headImg')
+    # list_display = ('name', 'sex', 'c_time', 'headImg')
 
-    list_filter = ['c_time']
     search_fields = ['name']
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Test)
+admin.site.register(Friend)
 
 # class QuestionAdmin(admin.ModelAdmin):
 #     # fields = ['pub_date', 'question_text']

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 
-from login import views
+from login import views, views_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +26,20 @@ urlpatterns = [
     path('get_test/', views.get_test),  # 响应get文本请求
     path('post_test/', views.post_test),  # 响应post文本请求
     path('post_file_test/', views.upload_file),  # 响应get文件请求
-    path('test_file/',views.test_file),
+    path('test_file/', views.test_file),
 
     # TODO: chat
-    path('', include('chat.urls'))
+    path('', include('chat.urls')),
+
+    # TODO: register
+    path('register/', views_login.register),
+    path('user_login/', views_login.user_login),
+    path('user_logout/', views_login.user_logout),
+
+    # TODO: 添加显示好友
+    path('check_is_friend/', views_login.check_is_friend),
+    path('add_friend/', views_login.add_friend),
+    path('get_all_friend/', views_login.get_all_friend),
+
+    path('get_all_friend_message/', views_login.get_all_friend_message)
 ]

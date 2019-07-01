@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private Context context;
 
-    private List list=new ArrayList();
+    private List list = new ArrayList();
 
 
     private static final String TAG = "TEST_FILE";
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         AssetManager assetManager = MainActivity.resources.getAssets();
                         try {
                             InputStream inputStream = assetManager.open(fileName);
-                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/test_file/", inputStream, fileName);
+                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/post_file_test/", inputStream, fileName);
                             /*
                              TODO: 子线程中更新UI
                              */
@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String url = "http://10.0.2.2:8000/get_test/";
+                        String host2 = "192.168.137.1";
+                        String url = "http://" + host2 + ":8000/get_test/";
+                        Log.e(TAG, "run: " + url);
                         final String get = GetPostUtil.sendGetRequest(url);
 
                         /*

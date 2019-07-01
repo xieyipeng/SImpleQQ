@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MineIM</string>
+    <string name="title_message">消息</string>
+    <string name="title_contact">联系人</string>
+    <string name="title_find">发现</string>
+    <string name="title_setting">设置</string>
+</resources>
