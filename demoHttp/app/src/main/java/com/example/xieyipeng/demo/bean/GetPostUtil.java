@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
@@ -134,17 +132,18 @@ public class GetPostUtil {
 
 
     /**
-     * 发送post请求上传图片
      *
-     * @param actionUrl   url
-     * @param inputStream 图片的流
-     * @param fileName    name
-     * @return 服务器响应
+     * @param actionUrl url
+     * @param map 上传数据的键值对
+     * @param inputStreams 上传图片的流数组
+     * @param fileNames 上传图片的文件名数组
+     * @return 服务器应答
      */
-    public static String upLoadFiles(String actionUrl, InputStream inputStream, String fileName) {
+    public static String upLoadFiles(String actionUrl, Map<String, String> map, InputStream[] inputStreams, String[] fileNames) {
         StringBuffer result = new StringBuffer();
         OutputStream outputStream = null;
         DataInputStream dataInputStream = null;
+        StringBuilder dataBuilder;
         try {
             final String newLine = "\r\n"; // 换行符
             final String boundaryPrefix = "--"; //边界前缀
@@ -165,74 +164,76 @@ public class GetPostUtil {
             outputStream = new DataOutputStream(connection.getOutputStream());
             // 文件参数
             // 参数头设置完以后需要两个换行，然后才是参数内容
-
-            String string_text = boundaryPrefix +
-                    boundary +
-                    newLine +
-                    "Content-Disposition: form-data;name=\"v1\"" +
-                    newLine +
-                    newLine +
-                    "v" +
-                    newLine;
-
-
-            outputStream.write(string_text.getBytes());
-
-
-
-
-
-            String stringBuilder = boundaryPrefix +
-                    boundary +
-                    newLine +
-                    "Content-Disposition: form-data;name=\"file\";filename=\"" + fileName + "\""
-                    + newLine +
-                    "Content-Type:application/octet-stream" +
-                    newLine +
-                    newLine;
-            // 将参数头的数据写入到输出流中
-            outputStream.write(stringBuilder.getBytes());
-
-            // 数据输入流,用于读取文件数据
-            dataInputStream = new DataInputStream(inputStream);
-            byte[] bufferOut = new byte[1024];
-            int bytes = 0;
-            // 每次读1KB数据,并且将文件数据写入到输出流中
-            while ((bytes = dataInputStream.read(bufferOut)) != -1) {
-                outputStream.write(bufferOut, 0, bytes);
+            // TODO: 先发送map里面的键值对
+            dataBuilder = new StringBuilder();
+            for (Map.Entry<String, String> var : map.entrySet()) {
+                String temp = boundaryPrefix +
+                        boundary +
+                        newLine +
+                        "Content-Disposition: form-data;name=\"" + var.getKey() + "\"" +
+                        newLine +
+                        newLine +
+                        var.getValue() +
+                        newLine;
+                dataBuilder.append(temp);
             }
-            // 最后添加换行
-            outputStream.write(newLine.getBytes());
-
-            //关闭流
-            inputStream.close();
-            dataInputStream.close();
+            outputStream.write(dataBuilder.toString().getBytes());
+            // TODO: 后发送流数组里面的键值对
+            if (inputStreams.length == fileNames.length) {
+                for (int i = 0; i < inputStreams.length; i++) {
+                    String temp = boundaryPrefix +
+                            boundary +
+                            newLine +
+                            "Content-Disposition: form-data;name=\"file\";filename=\"" + fileNames[i] + "\""
+                            + newLine +
+                            "Content-Type:application/octet-stream" +
+                            newLine +
+                            newLine;
+                    // 将参数头的数据写入到输出流中
+                    outputStream.write(temp.getBytes());
+                    // 数据输入流,用于读取文件数据
+                    dataInputStream = new DataInputStream(inputStreams[i]);
+                    byte[] bufferOut = new byte[1024];
+                    int bytes = 0;
+                    // 每次读1KB数据,并且将文件数据写入到输出流中
+                    while ((bytes = dataInputStream.read(bufferOut)) != -1) {
+                        outputStream.write(bufferOut, 0, bytes);
+                    }
+                    // 最后添加换行
+                    outputStream.write(newLine.getBytes());
+                    // 关闭流
+                    inputStreams[i].close();
+                }
+            }
+            if (dataInputStream != null) {
+                dataInputStream.close();
+            }
             // 定义最后数据分隔线，即--加上boundary再加上--。
+            // 此处第一个newLine可去掉
             byte[] end_data = (newLine + boundaryPrefix + boundary + boundaryPrefix + newLine).getBytes();
             // 写上结尾标识
             outputStream.write(end_data);
-            Log.e(TAG, "upLoadFiles: 1" );
-
             outputStream.flush();
             outputStream.close();
             // 定义BufferedReader输入流来读取服务器的响应
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                Log.e(TAG, "upLoadFiles: "+line );
                 result.append(line);
             }
-            Log.e(TAG, "upLoadFiles: 响应： " + result.toString());
+            Log.e(TAG, "upLoadFiles: 上传结果： " + result.toString());
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "uploadFiles: " + e.getMessage()+" "+e.toString());
+            Log.e(TAG, "uploadFiles: message: " + e.getMessage() + " toString: " + e.toString());
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "upLoadFiles: " + e.getMessage());
+            for (InputStream inputStream : inputStreams) {
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e(TAG, "upLoadFiles: " + e.getMessage());
+                    }
                 }
             }
             if (outputStream != null) {

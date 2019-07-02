@@ -17,7 +17,10 @@ import com.example.xieyipeng.demo.bean.GetPostUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,13 +69,22 @@ public class MainActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
+                        String[] fileNames = new String[1];
                         String fileName = "IMG.JPG";
+                        fileNames[0] = fileName;
                         // 获取工程目录下Assets目录里面的只读资源文件
                         // 也可获取相机里的文件流，同理
                         AssetManager assetManager = MainActivity.resources.getAssets();
                         try {
+                            InputStream[] inputStreams = new InputStream[1];
                             InputStream inputStream = assetManager.open(fileName);
-                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/post_file_test/", inputStream, fileName);
+                            inputStreams[0] = inputStream;
+                            Map<String, String> map = new HashMap<>();
+                            map.put("name", "xieyipeng");
+                            map.put("sex", "male");
+                            map.put("id", "1607094128");
+                            final String get = GetPostUtil.upLoadFiles("http://10.0.2.2:8000/post_file_test/", map, inputStreams, fileNames);
                             /*
                              TODO: 子线程中更新UI
                              */
