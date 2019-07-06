@@ -135,7 +135,7 @@ public class FragmentMessage extends Fragment {
                     public void run() {
                         refreshLayout.setRefreshing(false);
                     }
-                }, 3000);
+                }, 500);
 
             }
         });
@@ -143,9 +143,7 @@ public class FragmentMessage extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 //TODO: 搜索已有好友
-
                 Toast.makeText(MainActivity.context, "搜索好友" + query, Toast.LENGTH_SHORT).show();
                 searchView.setQuery("", false);
                 searchView.clearFocus();

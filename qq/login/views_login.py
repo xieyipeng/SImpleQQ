@@ -3,7 +3,7 @@ import json
 from django.contrib import auth
 
 from django.http import HttpResponse
-from login.models import MyUser, Friend
+from login.models import MyUser, Friend, Dynamic
 
 
 # https://docs.djangoproject.com/en/2.1/topics/auth/default/
@@ -32,7 +32,7 @@ def user_login(request):
                 data = {
                     'username': user.username,
                     'headImg': user.headImg.__str__().split('./uploads/')[1],
-                    'date_joined': user.date_joined.__str__(),
+                    'date_joined': user.date_joined.__str__().split(' ')[0],
                     'last_login': user.last_login.__str__(),
                 }
                 return HttpResponse(json.dumps(data))
@@ -45,10 +45,10 @@ def user_login(request):
 
 def user_logout(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        user = MyUser.objects.get(pk=username)
-        if user.is_active:
-            user.is_active = False
+        # username = request.POST.get('username')
+        # user = MyUser.objects.get(pk=username)
+        # if user.is_active:
+        #     user.is_active = False
         return HttpResponse('success')
 
     return HttpResponse('failed')
@@ -94,6 +94,8 @@ def get_all_friend(request):
     list = Friend.objects.all()
     if request.method == 'POST':
         for var in list:
+            print('name: '+request.POST.get('my_name'))
+            print(var.friend_one.username)
             if var.friend_one.username == request.POST.get('my_name'):
                 friend = {}
                 friend['name'] = var.friend_other.username
@@ -102,6 +104,7 @@ def get_all_friend(request):
 
                 friends.append(friend)
     import json
+    print(json.dumps(friends))
     return HttpResponse(json.dumps(friends))  # 返回user数据给安卓端
 
 
@@ -118,3 +121,80 @@ def get_all_friend_message(request):
                 friends.append(friend)
     import json
     return HttpResponse(json.dumps(friends))  # 返回user数据给安卓端
+
+
+def add_dynamic(request):
+    if request.method == 'POST':
+        if request.FILES:
+            # 有图片上传
+            kwargs = {
+                'username': request.POST['username'],
+                'context': request.POST['context'],
+                'img': request.FILES.get('file')
+            }
+            dynamic = Dynamic.objects.create(**kwargs)
+            dynamic.save()
+            return HttpResponse('success')
+        else:
+            # 无图片上传
+            dynamic = Dynamic.objects.create(username=request.POST['username'], context=request.POST['context'])
+            dynamic.save()
+            return HttpResponse('success')
+    else:
+        return HttpResponse('method error')
+
+
+def get_all_dynamic(request):
+    dynamics = []
+    friends = []
+    dynamicList = Dynamic.objects.all()
+    friendList = Friend.objects.all()
+    username = request.POST.get('username')
+
+    if request.method == 'POST':
+        for var in friendList:
+            if var.friend_one.username == username:
+                friends.append(var.friend_other.username)
+        friends.append(username)
+        for var in dynamicList:
+            if var.username in friends:
+                dynamic = {}
+                dynamic['username'] = var.username
+                dynamic['context'] = var.context
+                dynamic['time'] = var.c_time.__str__()
+                if var.img.__str__() == '':
+                    dynamic['image'] = var.img.__str__()
+                else:
+                    dynamic['image'] = var.img.__str__().split('uploads/')[1]
+                temp_user = MyUser.objects.get(username=var.username)
+                dynamic['headImage'] = temp_user.headImg.__str__()
+                dynamic['headImage'] = temp_user.headImg.__str__().split('uploads/')[1]
+                dynamics.append(dynamic)
+        return HttpResponse(json.dumps(dynamics))
+    return HttpResponse('none')
+
+
+def delete_dynamic(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        time = request.POST.get('time')
+        Dynamic.objects.filter(username=username, c_time=time).delete()
+        return HttpResponse('success')
+
+
+def change_head_image(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+
+        kwargs = {
+            'username': username,
+            'headImg': request.FILES.get('file'),
+        }
+
+        # user = MyUser.objects.filter(username=username)
+        # user.update(**kwargs)
+        print(username)
+        print(request.FILES)
+        return HttpResponse('success')
+    else:
+        return HttpResponse('failed')

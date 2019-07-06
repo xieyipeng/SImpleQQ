@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private ProgressBar progressBar;
     private TextView register;
-    private static final String host = "http://192.168.137.1:";
+    private static final String host = "http://10.0.2.2:";
     private static final String port = "8000";
     private final String url = host + port + "/user_login/";
     private static final String TAG = "LoginActivity";
@@ -96,5 +96,9 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
 
+
+
+
+        }
     }
-}
+

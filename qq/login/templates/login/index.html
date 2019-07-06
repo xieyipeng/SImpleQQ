@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+    <script>
+        function click(td) {
+            alert('nihao')
+        }
+
+    </script>
+</head>
+<body>
+<h1>{{ request.session.user_name }}! 欢迎登陆！</h1>
+
+<p>
+    <a href="/logout/">登出</a>
+</p>
+
+<h1>User</h1>
+<table border="1" >
+    <tr>
+        <th>用户名</th>
+        <th>加入时间</th>
+        <th>是否活跃</th>
+        <th>头像</th>
+        <th>密码</th>
+    </tr>
+    {% for var in users %}
+        <tr>
+            <td onclick="alert('用户名为主键，不能更改')">{{ var.username }}</td>
+            <td onclick="click(this)">{{ var.date_joined }}</td>
+            <td>{{ var.is_active }}</td>
+            <td>{{ var.headImg }}</td>
+            <td>{{ var.password }}</td>
+
+
+        </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Dynamics</h1>
+<table border="1">
+    <tr>
+        <th>用户名</th>
+        <th>创建时间</th>
+        <th>内容</th>
+        <th>图片</th>
+    </tr>
+    {% for var in dynamics %}
+        <tr>
+            <td>{{ var.username }}</td>
+            <td>{{ var.c_time }}</td>
+            <td>{{ var.context }}</td>
+            <td>{{ var.img }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Friends</h1>
+<table border="1">
+    <tr>
+        <th>申请人</th>
+        <th>被申请人</th>
+    </tr>
+    {% for var in friends %}
+        <tr>
+            <td>{{ var.friend_one.username }}</td>
+            <td>{{ var.friend_other.username }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h1>Love</h1>
+<table border="1">
+    <tr>
+        <th>点击人</th>
+        <th>被点击人</th>
+        <th>点击时间</th>
+    </tr>
+    {% for var in loves %}
+        <tr>
+            <td>{{ var.clicker }}</td>
+            <td>{{ var.clicked }}</td>
+            <td>{{ var.c_time }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

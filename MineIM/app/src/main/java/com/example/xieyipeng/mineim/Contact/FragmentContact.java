@@ -47,7 +47,6 @@ public class FragmentContact extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what==1){
-                Log.e(TAG, "handleMessage: "+ res);
                 try {
                     JSONArray jsonArray=new JSONArray(res);
                     for (int i = 0; i < jsonArray.length(); i++) {

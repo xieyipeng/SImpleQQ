@@ -60,15 +60,14 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:background="#9e9e9e" />
+                        android:layout_marginLeft="10dp" />
 
                     <TextView
+                        android:id="@+id/setting_create_time"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:text="15035081949" />
+                        android:gravity="center_vertical" />
 
 
                 </LinearLayout>
@@ -92,14 +91,24 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:background="#9e9e9e" />
+                        android:background="@drawable/ic_account" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="用户名" />
+
+                    <TextView
+                        android:id="@+id/setting_user_name"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+
+
 
 
                 </LinearLayout>
@@ -127,14 +136,22 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:background="#9e9e9e" />
+                    android:background="@drawable/ic_password" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="密码" />
+
+                <TextView
+                    android:text="修改"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
 
 
             </LinearLayout>

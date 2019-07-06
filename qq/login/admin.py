@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from login.models import MyUser, Test,Friend
+from login.models import MyUser, Test, Friend, Dynamic, Love
 from . import models
 
 
@@ -8,19 +8,25 @@ from . import models
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    # fields = ['pub_date', 'question_text']
+    # fields = ['username', 'isOnline', 'last_login', 'date_joined', 'headImg']
     # fieldsets = [
     #     (None, {'fields': ['question_text']}),
     #     ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     # ]
-    # list_display = ('name', 'sex', 'c_time', 'headImg')
-
+    list_display = ('username', 'isOnline', 'is_staff', 'is_active', 'last_login', 'date_joined', 'headImg')
     search_fields = ['name']
+
+
+class DynamicAdmin(admin.ModelAdmin):
+    # fields = ['id', 'username', 'c_time', 'context', 'img']
+    list_display = ('id', 'username', 'c_time', 'context', 'img')
 
 
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Test)
 admin.site.register(Friend)
+admin.site.register(Dynamic, DynamicAdmin)
+admin.site.register(Love)
 
 # class QuestionAdmin(admin.ModelAdmin):
 #     # fields = ['pub_date', 'question_text']

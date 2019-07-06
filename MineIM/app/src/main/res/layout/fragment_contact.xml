@@ -96,7 +96,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="#c4c4c4" />
+                android:background="@drawable/ic_new_friend" />
 
 
             <TextView
@@ -136,7 +136,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="#c4c4c4" />
+                android:background="@drawable/ic_group" />
 
 
             <TextView

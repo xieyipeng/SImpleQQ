@@ -24,10 +24,12 @@ public class StartActivity extends AppCompatActivity {
             }
         }, 1000);
 
+
     }
 
     /**
      * 屏蔽返回键
+     *
      * @param keyCode
      * @param event
      * @return

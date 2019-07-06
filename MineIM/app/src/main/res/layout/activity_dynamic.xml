@@ -29,20 +29,38 @@
                     android:textColor="#ffffff"
                     android:textSize="20sp" />
 
+                <ImageView
+                    android:id="@+id/dynamic_add_find"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_add_white" />
+
+
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/dynamic_refresh"
         android:layout_width="match_parent"
-        android:id="@+id/find_recycle_view"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dynamic_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </LinearLayout>

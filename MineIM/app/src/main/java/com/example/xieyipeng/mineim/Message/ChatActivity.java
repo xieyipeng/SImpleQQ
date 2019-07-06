@@ -39,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
     private TextView sendButton;
     private List<MessageSendReceive> userMessages = new ArrayList<>();
-    private static final String LOBBY = "ws://192.168.137.1:8000/ws/chat/lobby/";
+    private static final String LOBBY = "ws://10.0.2.2:8000/ws/chat/lobby/";
     private WebSocketClient webSocketClient;
     private static ChatAdapter chatAdapter;
     private List<MessageSendReceive> messageSendReceives = new ArrayList<>();
@@ -107,14 +107,12 @@ public class ChatActivity extends AppCompatActivity {
                                 jsonObject.getString("send_to"),
                                 jsonObject.getString("my_sender"));
                         if (messageSendReceive.getSend_to().equals(MainActivity.userName)) {
-
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     chatAdapter.myNotify(messageSendReceive);
                                 }
                             });
-
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

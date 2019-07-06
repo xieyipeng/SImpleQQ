@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 
-from login import views, views_login
+from login import views, views_login, views_web
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include('chat.urls')),
 
     # TODO: register
-    path('register/', views_login.register),
+    path('user_register/', views_login.register),
     path('user_login/', views_login.user_login),
     path('user_logout/', views_login.user_logout),
 
@@ -40,6 +40,21 @@ urlpatterns = [
     path('check_is_friend/', views_login.check_is_friend),
     path('add_friend/', views_login.add_friend),
     path('get_all_friend/', views_login.get_all_friend),
+    path('get_all_friend_message/', views_login.get_all_friend_message),
 
-    path('get_all_friend_message/', views_login.get_all_friend_message)
+    # TODO: 好友动态
+    path('add_dynamic/', views_login.add_dynamic),
+    path('get_all_dynamic/', views_login.get_all_dynamic),
+    path('delete_dynamic/', views_login.delete_dynamic),
+
+
+    # TODO：web
+    path('index/', views_web.index),
+    path('login/', views_web.login),
+    path('register/', views_web.register),
+    path('logout/', views_web.logout),
+
+    # TODO: 修改信息
+    path('change_head_image/', views_login.change_head_image),
+
 ]

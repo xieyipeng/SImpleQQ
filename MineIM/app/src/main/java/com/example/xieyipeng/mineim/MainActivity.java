@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment save_fragment_find;
     private Fragment save_fragment_setting;
 
-
-    public static final String host = "http://192.168.137.1:";
+    public static final String host = "http://10.0.2.2:";
     public static final String port = "8000";
     public static final String nginx_port = "81";
 
@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
             //透明导航栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+        getData();
         setContentView(R.layout.activity_main);
         context = this;
         fragmentManager = getSupportFragmentManager();
         initBottom();
         setToolBarColor(this);
-        getData();
 
     }
 
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             headImg = jsonObject.getString("headImg");
             date_joined = jsonObject.getString("date_joined");
             last_login = jsonObject.getString("last_login");
-
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "getData: " + e.getMessage());
@@ -262,4 +261,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsPanel(view, menu);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment f = fragmentManager.findFragmentByTag("fragmentSetting");
+        assert f != null;
+        f.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Fragment f = fragmentManager.findFragmentByTag("fragmentSetting");
+        assert f != null;
+        f.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }
