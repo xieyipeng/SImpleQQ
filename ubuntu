@@ -1,0 +1,23 @@
+您可以像任何其他systemd单位一样管理Nginx服务。 要停止Nginx服务，请运行：
+
+sudo systemctl stop nginx
+
+要再次启动，请键入：
+
+sudo systemctl start nginx
+
+重新启动Nginx服务：
+
+sudo systemctl restart nginx
+
+在进行一些配置更改后重新加载Nginx服务：
+
+$sudo systemctl reload nginx
+
+如果你想禁用Nginx服务在启动时启动：
+
+$sudo systemctl disable nginx
+
+并重新启用它：
+
+$sudo systemctl enable nginx

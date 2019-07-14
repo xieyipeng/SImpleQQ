@@ -2,38 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c4a45d5-834c-49d2-8660-f09c6a95b644" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/login/static/login/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/static/login/css/register.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/templates/login/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/templates/login/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/templates/login/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/views_web.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Contact/FragmentContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Contact/FragmentContact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Find/DynamicActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Find/DynamicActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Message/ChatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Message/ChatActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Message/FragmentMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Message/FragmentMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Setting/FragmentSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/Setting/FragmentSetting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/StartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/StartActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/tools/GetPostUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/java/com/example/xieyipeng/mineim/tools/GetPostUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/res/drawable/ic_add.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/activity_dynamic.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/activity_dynamic.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_contact.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_contact.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_find.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_find.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MineIM/app/src/main/res/layout/fragment_setting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../demoHttp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../demoHttp/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/qq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/qq.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/login/test.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views_login.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views_login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qq/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/qq/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qq/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/qq/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/IMG_k4xysZs.JPG" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +21,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/qq/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="2332">
               <caret line="106" column="78" selection-start-line="106" selection-start-column="78" selection-end-line="106" selection-end-column="78" />
             </state>
           </provider>
@@ -58,7 +30,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/qq/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1166">
               <caret line="57" column="43" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
               <folding>
                 <element signature="e#627#659#0" expanded="true" />
@@ -70,11 +42,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/login/views_web.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+            <state relative-caret-position="154">
+              <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
-                <marker date="1562321199644" expanded="true" signature="1777:1857" ph="..." />
               </folding>
             </state>
           </provider>
@@ -83,7 +54,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login/templates/login/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1738">
               <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
             </state>
           </provider>
@@ -92,7 +63,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1254">
               <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
@@ -177,10 +148,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="216" />
+    <option name="y" value="113" />
+    <option name="width" value="1466" />
+    <option name="height" value="868" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -244,18 +216,6 @@
               <item name="qq" type="462c0819:PsiDirectoryNode" />
               <item name="uploads" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="qq" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qq" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="default" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qq" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qq" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="user_123" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -267,11 +227,11 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/uploads" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -360,11 +320,12 @@
       <workItem from="1562317456864" duration="4239000" />
       <workItem from="1562378730272" duration="1834000" />
       <workItem from="1562408382479" duration="1207000" />
+      <workItem from="1562649568465" duration="244000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242223000" />
+    <option name="totallyTimeSpent" value="242467000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -376,9 +337,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="216" y="113" width="1466" height="868" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20415778" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26308346" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -392,7 +354,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3286334" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.51626897" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49946696" weight="0.39262474" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49946696" weight="0.39202657" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286334" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -491,13 +453,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/python/Lib/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="182" column="4" selection-start-line="182" selection-start-column="4" selection-end-line="182" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/python/Lib/json/__init__.py" />
     <entry file="file://$PROJECT_DIR$/chat/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -577,13 +533,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/82968844/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="289" column="4" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/82968844/builtins.py" />
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/templatetags/static.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -709,14 +659,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/qq/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="2332">
           <caret line="106" column="78" selection-start-line="106" selection-start-column="78" selection-end-line="106" selection-end-column="78" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/qq/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="1166">
           <caret line="57" column="43" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
           <folding>
             <element signature="e#627#659#0" expanded="true" />
@@ -726,14 +676,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/login/templates/login/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="1738">
           <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/login/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="1254">
           <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
@@ -743,11 +693,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/login/views_web.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+        <state relative-caret-position="154">
+          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
-            <marker date="1562321199644" expanded="true" signature="1777:1857" ph="..." />
           </folding>
         </state>
       </provider>
